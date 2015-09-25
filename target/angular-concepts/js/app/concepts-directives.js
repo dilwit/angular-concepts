@@ -55,11 +55,12 @@ conceptsDir.directive('showAge', function(){
 	
 	<p>Advance directive with custom parser<p>
  */
-conceptsDir.directive('capitalize', function($parse) {	
+conceptsDir.directive('capitalizeByParser', function($parse) {	
 	return {
 		restrict: 'A',
 		require: 'ngModel',
-		link: function(scope, element, attrs, modelCtrl) {			
+		link: function(scope, element, attrs, modelCtrl) {					
+			
 			
 			var capitalize = function(inputValue) {				
 				if(inputValue) {
@@ -77,11 +78,49 @@ conceptsDir.directive('capitalize', function($parse) {
 				return null;
 	        }
 			
-			// add new custom parser into ngModelCtrl.
+			/*
+			 * Parsers are called when view model changes and then changes are propagated to model.
+			 * That is reason we specifically set view value once changed
+			 * Parsers are executed by ngModel in chain fashion and view value (inputValue) is passed
+			 * into function by default
+			 */ 
+			
+			// add new custom parser into ngModelCtrl.			
 	        modelCtrl.$parsers.push(capitalize);
-	        //capitalize($parse(attrs.ngModel)(scope));
+	        capitalize($parse(attrs.ngModel)(scope));
 		}
 	};
+});
+
+/*
+ * <p>Advance directive with custom formatter<p>
+ */
+conceptsDir.directive('capitalizeByFormatter', function() {
+	
+	return {
+		restrict : 'A',
+		require : 'ngModel',
+		link : function(sope, iElements, iAttrs, iCtrls) {
+			
+			function capitalize(inputValue) {
+				
+				if(inputValue){
+					return inputValue.toUpperCase();
+				}
+				
+				return null;
+			}
+			
+			/*
+			 * Formatters invoked when the model value changes and then changes are propagated to view.
+			 * 
+			 * Formatters are executed by ngModel in chain fashion and model value (inputValue) is passed
+			 * into function by default
+			 */
+			iCtrls.$formatters.push(capitalize);
+		}
+	}
+	
 });
 
 

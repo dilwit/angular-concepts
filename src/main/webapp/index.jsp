@@ -84,8 +84,12 @@
 	<br>
 	
 	<p>Advance directive with custom parser<p>
-	<input type="text" ng-model="user.lastName" capitalize/><br>
+	<input type="text" ng-model="user.lastName" capitalize-by-parser/><br>
 	<label>Value in the model: {{user.lastName}}</label><br>
+	<br>
+	<p>Advance directive with custom formatter<p>
+	<input type="button" value="set pet name" ng-click="user.petName = 'donkey kong'"/> - <label>Value in the model: {{user.petName}}</label><br>
+	<input type="text" ng-model="user.petName" capitalize-by-formatter/><br>	
 	<br>
 	
 	<h3>Element wrapping directives</h3>
