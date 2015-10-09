@@ -123,4 +123,33 @@ conceptsDir.directive('capitalizeByFormatter', function() {
 	
 });
 
+conceptsDir.directive('populateSubOptions', function($parse){
+	return {
+		restrict : 'A',
+		link : function(scope, iElem, iAttr) {
+			
+			iElem.on('change', function(event){
+				
+				console.log('hellooo');
+				
+				var selectedVal = $parse(iAttr.ngModel)(scope);
+				
+				/*
+				 *  on() is a jquey function where iElem is jqueryLite element. Hence, angular is not aware of our changes to scope.
+				 *  Then write the code in apply function so that angular will propagate changes properly
+				 */
+				
+				scope.$apply(function () {
+					if("ding" == selectedVal.display) {
+						scope.subOptions = scope.subOptionsDing;
+					} else {
+						scope.subOptions = scope.subOptionsDong;
+					}
+				});
+								
+			});
+		}
+	}
+});
+
 

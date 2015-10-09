@@ -87,6 +87,7 @@
 	<input type="text" ng-model="user.lastName" capitalize-by-parser/><br>
 	<label>Value in the model: {{user.lastName}}</label><br>
 	<br>
+	<p>Advance directive with custom formatter<p>
 	<input type="button" value="set pet name" ng-click="user.petName = 'donkey kong'"/> - <label>Value in the model: {{user.petName}}</label><br>
 	<input type="text" ng-model="user.petName" capitalize-by-formatter/><br>	
 	<br>
@@ -102,6 +103,11 @@
 	</p>
 	<br>
 	<h3>Event listening directives</h3>
+	
+	<select ng-options="opt.display for opt in mainOptions" ng-model="selectedMainOpt" populate-sub-options></select>
+	
+	<select ng-options="subOpt.display for subOpt in subOptions" ng-model="selectedSubOpt"></select>
+	{{selectedMainOpt}} - {{selectedSubOpt}}
 	<h3>Communicating directives</h3>
 	<p>
 		It makes sense to use controller instead of link within directive, if you need to expose API to other directives.

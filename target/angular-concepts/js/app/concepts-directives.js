@@ -123,4 +123,28 @@ conceptsDir.directive('capitalizeByFormatter', function() {
 	
 });
 
+conceptsDir.directive('populateSubOptions', function($parse){
+	return {
+		restrict : 'A',
+		link : function(scope, iElem, iAttr) {
+			
+			iElem.on('change', function(event){
+				
+				console.log('hellooo');
+				
+				var selectedVal = $parse(iAttr.ngModel)(scope);
+				
+				scope.$apply(function () {
+					if("ding" == selectedVal.display) {
+						scope.subOptions = scope.subOptionsDing;
+					} else {
+						scope.subOptions = scope.subOptionsDong;
+					}
+				});
+								
+			});
+		}
+	}
+});
+
 
